@@ -1,0 +1,306 @@
+/* src/components/Main/Main.css */
+
+.main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 28px 16px 40px;
+  background: var(--color-bg-page);
+  min-height: 70vh;
+}
+
+.main__panel {
+  background: transparent;
+}
+
+/* ---------- Store Tabs ---------- */
+.main__stores {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 520px;
+  margin: 0 auto 14px;
+}
+
+.main__store-tab {
+  min-width: 130px;
+  height: 34px;
+  font-weight: 700;
+
+  border: none;
+  background: none;
+  color: inherit;
+  box-shadow: none;
+}
+
+.main__store-tab_active {
+  background: none;
+  box-shadow: none;
+}
+
+/* ---------- Top Section ---------- */
+
+.main__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.main__filters {
+  display: grid;
+  gap: 14px;
+}
+
+.main__field {
+  display: grid;
+  gap: 6px;
+}
+
+.main__label {
+  font-size: 16px;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* ---------- Custom Select ---------- */
+
+.main__select-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.main__select {
+  width: 100%;
+  height: 44px;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+  padding: 0 12px;
+  padding-right: 52px; /* space for custom arrow */
+  outline: none;
+  font-size: 16px;
+  color: var(--color-text);
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.main__select:focus {
+  border-color: var(--color-primary);
+}
+
+/* Custom arrow */
+.main__select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--color-text-muted);
+  border-bottom: 2px solid var(--color-text-muted);
+  pointer-events: none;
+}
+
+/* ---------- Actions ---------- */
+
+.main__actions {
+  display: grid;
+  gap: 14px;
+  padding-top: 10px;
+}
+
+.main__action-btn {
+  width: 170px;
+  height: 44px;
+
+  border: none;
+  background: none;
+  color: inherit;
+  box-shadow: none;
+}
+
+.main__action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* ---------- List ---------- */
+
+.main__list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ---------- Item Row ---------- */
+
+.main__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 12px 14px;
+}
+
+.main__row-left {
+  min-width: 220px;
+}
+
+.main__item-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.main__unit {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-left: 8px;
+}
+
+/* ---------- Right Group ---------- */
+
+.main__row-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+/* ---------- Badges ---------- */
+
+.main__badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-page);
+  color: var(--color-text);
+}
+
+/* ---------- Quantity ---------- */
+
+.main__qty-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 4px;
+}
+
+/* Desktop size */
+.main__qty-btn {
+  height: 32px;
+  min-width: 36px;
+  padding: 0 10px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.main__qty {
+  min-width: 22px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.main__price {
+  font-weight: 700;
+  color: var(--color-text);
+  margin-left: 6px;
+}
+
+.main__totalline {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.main__empty {
+  color: var(--color-text-muted);
+  font-size: 16px;
+}
+
+/* ==================  MOBILE  ========================= */
+
+@media (max-width: 520px) {
+  .main {
+    padding: 12px;
+  }
+
+  .main__stores {
+    max-width: 100%;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .main__store-tab {
+    min-width: 0;
+    height: 44px;
+    padding: 0 18px;
+    font-size: 16px;
+  }
+
+  .main__top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .main__actions {
+    padding-top: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .main__action-btn {
+    width: 100%;
+    max-width: 320px;
+    height: 60px;
+  }
+
+  .main__row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .main__row-left {
+    min-width: 0;
+  }
+
+  .main__row-right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  /* Larger tap targets */
+  .main__qty-btn {
+    height: 44px;
+    min-width: 44px;
+    padding: 0 14px;
+    font-size: 18px;
+  }
+
+  .main__price {
+    margin-left: 0;
+  }
+}

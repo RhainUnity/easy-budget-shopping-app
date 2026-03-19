@@ -1,0 +1,41 @@
+/* src/styles/toolkit.css */
+
+.btn {
+  height: 60px;
+  padding: 0 32px;
+  border-radius: var(--radius-pill);
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-button);
+}
+
+.btn--primary:disabled {
+  background: var(--color-primary-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn--outline {
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--sm {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 500;
+}

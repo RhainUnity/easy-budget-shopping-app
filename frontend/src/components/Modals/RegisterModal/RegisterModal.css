@@ -1,0 +1,40 @@
+/* src/components/Modals/RegisterModal/RegisterModal.css */
+
+.auth__avatar-preview {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.auth__avatar-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  object-fit: cover;
+}
+
+.auth__file {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* hide default styling so matches rest of UI */
+.auth__file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.auth__file-name {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}

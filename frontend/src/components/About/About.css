@@ -1,0 +1,13 @@
+/* src/components/About/About.css */
+
+.about {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.about__author-name {
+  margin-top: 95px;
+  font-style: italic;
+  color: #555;
+}

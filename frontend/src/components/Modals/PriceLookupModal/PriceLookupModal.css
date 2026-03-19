@@ -1,0 +1,66 @@
+/* src/components/Modals/PriceLookupModal/PriceLookupModal.css */
+
+.lookupmodal__label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.lookupmodal__input {
+  height: 44px;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--color-border);
+  padding: 0 12px;
+  background: var(--color-bg-card);
+  color: var(--color-text);
+  font-size: 16px;
+  outline: none;
+}
+
+.lookupmodal__input:focus {
+  border-color: var(--color-primary);
+}
+
+.lookupmodal__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lookupmodal__results {
+  border: 1px dashed var(--color-border);
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--color-bg-page);
+}
+
+.lookupmodal__hint {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.lookupmodal__error {
+  margin: 0;
+  color: #b00020;
+}
+
+.lookupmodal__card {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 10px;
+  background: var(--color-bg-card);
+}
+
+.lookupmodal__title {
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+
+.lookupmodal__meta {
+  margin: 6px 0 0;
+  font-size: 12px;
+  opacity: 0.8;
+}

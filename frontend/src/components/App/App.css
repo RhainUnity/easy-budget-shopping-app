@@ -1,0 +1,14 @@
+/* src/components/App/App.css */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.page__content {
+  flex: 1;
+  padding: 16px;
+}

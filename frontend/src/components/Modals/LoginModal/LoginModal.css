@@ -1,0 +1,27 @@
+/* Modals/LoginModal/Loginmodal.css */
+.auth__label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.auth__input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.auth__submit {
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.auth__link {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  justify-self: start;
+}

@@ -1,0 +1,38 @@
+/* index.css */
+
+@import "./vendor/fonts/fonts.css";
+
+:root {
+  /* Colors */
+  --color-primary: #2f71e5;
+  --color-primary-disabled: #8cace5;
+  --color-text: #000000;
+  --color-text-muted: #8b8b8b;
+  --color-border: #cfcfcf;
+  --color-bg-page: #f5f6f7;
+  --color-bg-card: #ffffff;
+
+  /* Fonts */
+  --font-main:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Radii */
+  --radius-pill: 100px;
+  --radius-input: 30px;
+  --radius-card: 16px;
+
+  /* Shadows */
+  --shadow-button: 0 5px 15px rgba(14, 26, 57, 0.2);
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--color-bg-page);
+  color: var(--color-text);
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
