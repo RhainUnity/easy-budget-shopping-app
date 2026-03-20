@@ -1,5 +1,5 @@
 {
-  "name": "backend-express",
+  "name": "easy-budget-shopping-app-backend",
   "version": "1.0.0",
   "description": "Shopping app backend",
   "main": "app.js",
