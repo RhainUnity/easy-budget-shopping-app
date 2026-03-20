@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "seed:shared-prices": "node scripts/seedSharedPrices.js"
   },
   "keywords": [],
   "author": "Jeremy Schmidt",

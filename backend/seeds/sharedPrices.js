@@ -1,0 +1,40 @@
+// backend/seeds/sharedPrices.js
+
+module.exports = [
+  {
+    normalizedName: "eggs",
+    displayName: "Eggs",
+    brand: "",
+    store: "Safeway",
+    category: "Dairy",
+    unit: "per dozen",
+    price: 6.49,
+    sourceType: "seed",
+    submissionCount: 1,
+    aliases: ["egg"],
+  },
+  {
+    normalizedName: "milk",
+    displayName: "Milk",
+    brand: "",
+    store: "Safeway",
+    category: "Dairy",
+    unit: "per gallon",
+    price: 4.29,
+    sourceType: "seed",
+    submissionCount: 1,
+    aliases: [],
+  },
+  {
+    normalizedName: "bread",
+    displayName: "Bread",
+    brand: "",
+    store: "Safeway",
+    category: "Bakery",
+    unit: "each",
+    price: 2.99,
+    sourceType: "seed",
+    submissionCount: 1,
+    aliases: [],
+  },
+];
