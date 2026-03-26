@@ -28,25 +28,19 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
 
       const result = await fetchAveragePrice(lookupQuery);
 
-      setLookupResult({
-        matchedKey: result.item,
-        displayLabel: result.label || result.item,
-        seriesId: result.seriesId,
-        price: result.price,
-        unit: result.unit || "each",
-        periodName: result.month,
-        year: result.year,
-      });
+      if (!result.found) {
+        setLookupStatus("error");
+        setLookupError("No shared price found");
+        return;
+      }
 
+      setLookupResult(result.item);
       setLookupStatus("done");
     } catch (e) {
       setLookupStatus("error");
-
       setLookupError(
-        e?.message ||
-          "No match yet. Try: banana, milk (we’ll add more items soon).",
+        e?.message || "No shared price found. You can add this item next.",
       );
-
       setLookupResult(null);
     }
   };
@@ -104,19 +98,24 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
         {lookupResult && (
           <div className="lookupmodal__card">
             <p className="lookupmodal__title">
-              Match: <strong>{lookupResult.displayLabel}</strong>
+              Match: <strong>{lookupResult.name}</strong>
             </p>
+
+            {lookupResult.brand && (
+              <p className="lookupmodal__meta">Brand: {lookupResult.brand}</p>
+            )}
+
             <p>
-              Avg price:{" "}
+              Price:{" "}
               <strong>
                 ${lookupResult.price.toFixed(2)}{" "}
                 {lookupResult.unit ? `(${lookupResult.unit})` : ""}
               </strong>
             </p>
-            <p className="lookupmodal__meta">
-              Source: BLS Average Price ({lookupResult.periodName}{" "}
-              {lookupResult.year})
-            </p>
+
+            <p className="lookupmodal__meta">Store: {lookupResult.store}</p>
+
+            <p className="lookupmodal__meta">Source: Shared price database</p>
           </div>
         )}
       </div>

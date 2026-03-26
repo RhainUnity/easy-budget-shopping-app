@@ -78,14 +78,17 @@ export function updateItem(itemId, itemData) {
   }).then(checkResponse);
 }
 
-export function fetchAveragePrice(query) {
-  return fetch(
-    `${BASE_URL}/pricing/average-price?query=${encodeURIComponent(query)}`,
-    {
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-        "Content-Type": "application/json",
-      },
+export function fetchAveragePrice(query, store) {
+  const params = new URLSearchParams({ query });
+
+  if (store) {
+    params.set("store", store);
+  }
+
+  return fetch(`${BASE_URL}/pricing/average-price?${params.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      "Content-Type": "application/json",
     },
-  ).then(checkResponse);
+  }).then(checkResponse);
 }
