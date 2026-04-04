@@ -11,6 +11,13 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
   const [lookupError, setLookupError] = useState("");
   const [lookupResult, setLookupResult] = useState(null);
 
+  // submit hooks
+  const [submitBrand, setSubmitBrand] = useState("");
+  const [submitCategory, setSubmitCategory] = useState("Other");
+  const [submitPrice, setSubmitPrice] = useState("");
+  const [submitUnit, setSubmitUnit] = useState("each");
+  const [submitStore, setSubmitStore] = useState("Safeway");
+
   useEffect(() => {
     if (!isOpen) return;
     // reset each open
@@ -49,10 +56,10 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
   try {
     await submitSharedPrice({
       name: lookupQuery,
-      store: "Safeway",
-      category: "Other",
-      price: 1,
-      unit: "each",
+      store: submitStore || "Safeway",
+      category: submitCategory || "Other",
+      price: submitPrice || 1,
+      unit: submitUnit || "each",
     });
 
     setLookupStatus("done");
