@@ -42,6 +42,36 @@ const getAveragePrice = async (req, res, next) => {
   }
 };
 
+const createSharedPrice = async (req, res, next) => {
+  try {
+    const { name, brand, store, category, price, unit } = req.body;
+
+    if (!name || !store || !category || price === undefined || price === null) {
+      return res.status(400).send({ message: "Missing required fields" });
+    }
+
+    const normalizedName = normalizeItemName(name);
+
+    const newItem = await SharedPrice.create({
+      normalizedName,
+      displayName: name,
+      brand: brand || "",
+      store,
+      category,
+      price,
+      unit: unit || "each",
+      sourceType: "submission",
+      submissionCount: 1,
+      aliases: [],
+    });
+
+    return res.status(201).send({ item: newItem });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   getAveragePrice,
+  createSharedPrice,
 };

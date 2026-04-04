@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { fetchAveragePrice } from "../../../utils/api";
+import { fetchAveragePrice, submitSharedPrice } from "../../../utils/api";
 import "./PriceLookupModal.css";
 
 function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
@@ -45,6 +45,32 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
     }
   };
 
+  const handleSubmitNewItem = async () => {
+  try {
+    await submitSharedPrice({
+      name: lookupQuery,
+      store: "Safeway",
+      category: "Other",
+      price: 1,
+      unit: "each",
+    });
+
+    setLookupStatus("done");
+    setLookupError("");
+    setLookupResult({
+      name: lookupQuery,
+      brand: "",
+      store: "Safeway",
+      category: "Other",
+      price: 1,
+      unit: "each",
+    });
+  } catch (err) {
+    setLookupStatus("error");
+    setLookupError(err?.message || "Failed to add item to shared database");
+  }
+};
+
   const handleUse = () => {
     if (!lookupResult) return;
     onUsePrice?.(lookupResult); // ** send result to AddItemModal
@@ -85,7 +111,17 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
 
       <div className="lookupmodal__results">
         {lookupStatus === "error" && (
+          <>
           <p className="lookupmodal__error">{lookupError}</p>
+
+          <button
+            type="button"
+            className="btn btn--primary btn--sm"
+            onClick={handleSubmitNewItem}
+          >
+            Add this item to Shared Database
+          </button>
+          </>
         )}
 
         {lookupStatus === "idle" && (

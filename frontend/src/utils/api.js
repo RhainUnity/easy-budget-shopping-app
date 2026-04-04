@@ -92,3 +92,14 @@ export function fetchAveragePrice(query, store) {
     },
   }).then(checkResponse);
 }
+
+export function submitSharedPrice(data) {
+  return fetch(`${BASE_URL}/pricing/submit-price`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then(checkResponse);
+}

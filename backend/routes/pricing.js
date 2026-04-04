@@ -1,7 +1,7 @@
 // backend-express/routes/pricing.js
 
 const router = require("express").Router();
-const { getAveragePrice } = require("../controllers/pricing");
+const { getAveragePrice, createSharedPrice } = require("../controllers/pricing");
 
 /* router.get("/average-price", getAveragePrice); */
 
@@ -14,5 +14,7 @@ router.get(
   },
   getAveragePrice,
 );
+
+router.post("/submit-price", createSharedPrice);
 
 module.exports = router;
