@@ -25,6 +25,12 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
     setLookupStatus("idle");
     setLookupError("");
     setLookupResult(null);
+
+    setSubmitBrand("");
+    setSubmitCategory("Other");
+    setSubmitPrice("");
+    setSubmitUnit("each");
+    setSubmitStore("Safeway");
   }, [isOpen]);
 
   const handleLookupSearch = async () => {
@@ -54,23 +60,32 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
 
   const handleSubmitNewItem = async () => {
   try {
-    await submitSharedPrice({
-      name: lookupQuery,
-      store: submitStore || "Safeway",
-      category: submitCategory || "Other",
-      price: submitPrice || 1,
-      unit: submitUnit || "each",
-    });
+    if (!lookupQuery.trim() || !submitStore || !submitCategory || !submitPrice) {
+      setLookupStatus("error");
+      setLookupError("Please complete store, category, and price.");
+      return;
+    }
+
+    const payload = {
+      name: lookupQuery.trim(),
+      brand: submitBrand.trim(),
+      store: submitStore,
+      category: submitCategory,
+      price: Number(submitPrice),
+      unit: submitUnit,
+    };
+
+    await submitSharedPrice(payload);
 
     setLookupStatus("done");
     setLookupError("");
     setLookupResult({
-      name: lookupQuery,
-      brand: "",
-      store: "Safeway",
-      category: "Other",
-      price: 1,
-      unit: "each",
+      name: payload.name,
+      brand: payload.brand,
+      store: payload.store,
+      category: payload.category,
+      price: payload.price,
+      unit: payload.unit,
     });
   } catch (err) {
     setLookupStatus("error");
@@ -118,18 +133,100 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
 
       <div className="lookupmodal__results">
         {lookupStatus === "error" && (
-          <>
-          <p className="lookupmodal__error">{lookupError}</p>
+  <>
+    <p className="lookupmodal__error">{lookupError}</p>
 
-          <button
-            type="button"
-            className="btn btn--primary btn--sm"
-            onClick={handleSubmitNewItem}
-          >
-            Add this item to Shared Database
-          </button>
-          </>
-        )}
+    <div className="lookupmodal__card">
+      <p className="lookupmodal__title">
+        Add <strong>{lookupQuery}</strong> to shared database
+      </p>
+
+      <label className="lookupmodal__label">
+        Brand
+        <input
+          className="lookupmodal__input"
+          value={submitBrand}
+          onChange={(e) => setSubmitBrand(e.target.value)}
+          placeholder="Optional brand"
+        />
+      </label>
+
+      <label className="lookupmodal__label">
+        Store
+        <select
+          className="lookupmodal__input"
+          value={submitStore}
+          onChange={(e) => setSubmitStore(e.target.value)}
+        >
+          <option value="Safeway">Safeway</option>
+          <option value="WinCo">WinCo</option>
+          <option value="Albertsons">Albertsons</option>
+          <option value="Fred Meyer">Fred Meyer</option>
+        </select>
+      </label>
+
+      <label className="lookupmodal__label">
+        Category
+        <select
+          className="lookupmodal__input"
+          value={submitCategory}
+          onChange={(e) => setSubmitCategory(e.target.value)}
+        >
+          <option value="Pantry">Pantry</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Meat">Meat</option>
+          <option value="Frozen">Frozen</option>
+          <option value="Produce">Produce</option>
+          <option value="Bakery">Bakery</option>
+          <option value="Beverages">Beverages</option>
+          <option value="Snacks">Snacks</option>
+          <option value="Household">Household</option>
+          <option value="Personal Care">Personal Care</option>
+          <option value="Canned Goods">Canned Goods</option>
+          <option value="Condiments">Condiments</option>
+          <option value="Other">Other</option>
+        </select>
+      </label>
+
+      <label className="lookupmodal__label">
+        Price
+        <input
+          className="lookupmodal__input"
+          type="number"
+          min="0"
+          step="0.01"
+          value={submitPrice}
+          onChange={(e) => setSubmitPrice(e.target.value)}
+          placeholder="Enter price"
+        />
+      </label>
+
+      <label className="lookupmodal__label">
+        Unit
+        <select
+          className="lookupmodal__input"
+          value={submitUnit}
+          onChange={(e) => setSubmitUnit(e.target.value)}
+        >
+          <option value="each">each</option>
+          <option value="per lb">per lb</option>
+          <option value="per dozen">per dozen</option>
+          <option value="per gallon">per gallon</option>
+          <option value="per loaf">per loaf</option>
+        </select>
+      </label>
+
+      <button
+        type="button"
+        className="btn btn--primary btn--sm"
+        onClick={handleSubmitNewItem}
+        disabled={!lookupQuery.trim() || !submitStore || !submitCategory || !submitPrice}
+      >
+        Add this item to shared database
+      </button>
+    </div>
+  </>
+)}
 
         {lookupStatus === "idle" && (
           <p className="lookupmodal__hint">
