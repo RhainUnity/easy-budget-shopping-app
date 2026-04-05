@@ -66,12 +66,20 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
       return;
     }
 
+    const parsedPrice = parseFloat(submitPrice);
+
+    if (isNaN(parsedPrice) || parsedPrice < 0) {
+      setLookupStatus("error");
+      setLookupError("Please enter a valid price.");
+      return;
+    }
+
     const payload = {
       name: lookupQuery.trim(),
       brand: submitBrand.trim(),
       store: submitStore,
       category: submitCategory,
-      price: Number(submitPrice),
+      price: parsedPrice,
       unit: submitUnit,
     };
 
@@ -132,7 +140,7 @@ function PriceLookupModal({ isOpen, onClose, onUsePrice }) {
       </div>
 
       <div className="lookupmodal__results">
-        {lookupStatus === "error" && (
+        {lookupStatus === "error" && !lookupResult && (
   <>
     <p className="lookupmodal__error">{lookupError}</p>
 
