@@ -12,11 +12,23 @@ const getAveragePrice = async (req, res, next) => {
     }
 
     const normalizedName = normalizeItemName(query);
+    // debug check
+    console.log("Price lookup query:", query);
+    console.log("Normalized lookup:", normalizedName);
 
-    const match = await SharedPrice.findOne({
+    let match = await SharedPrice.findOne({
       normalizedName,
       ...(store ? { store } : {}),
     });
+
+    if (!match) {
+      match = await SharedPrice.findOne({
+        aliases: normalizedName,
+        ...(store ? { store } : {}),
+      });
+    }
+    // debug check
+    console.log("Lookup match:", match ? match.displayName : "none");
 
     if (!match) {
       return res.send({

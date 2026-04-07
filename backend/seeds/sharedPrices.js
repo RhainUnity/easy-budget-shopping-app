@@ -11,7 +11,7 @@ module.exports = [
     price: 6.49,
     sourceType: "seed",
     submissionCount: 1,
-    aliases: ["egg"],
+    aliases: ["egg", "eg", "dozen eggs", "large eggs", "carton of eggs"],
   },
   {
     normalizedName: "milk",
@@ -23,7 +23,14 @@ module.exports = [
     price: 4.29,
     sourceType: "seed",
     submissionCount: 1,
-    aliases: [],
+    aliases: [
+      "milk",
+      "mlk",
+      "gallon of milk",
+      "whole milk",
+      "2 percent milk",
+      "2% milk",
+    ],
   },
   {
     normalizedName: "bread",
@@ -35,6 +42,6 @@ module.exports = [
     price: 2.99,
     sourceType: "seed",
     submissionCount: 1,
-    aliases: [],
+    aliases: ["bread", "loaf of bread", "whole wheat bread", "white bread"],
   },
 ];
