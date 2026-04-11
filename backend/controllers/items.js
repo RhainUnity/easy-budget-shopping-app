@@ -18,11 +18,12 @@ const getItems = (req, res, next) => {
 };
 
 const createItem = (req, res, next) => {
-  const { item, price, unit, category, priority, qty, hidden, store } =
+  const { item, brand, price, unit, category, priority, qty, hidden, store } =
     req.body;
 
   Item.create({
     item,
+    brand,
     price,
     unit,
     category,

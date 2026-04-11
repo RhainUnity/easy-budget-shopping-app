@@ -10,6 +10,12 @@ const itemSchema = new mongoose.Schema(
       minlength: 1,
       maxlength: 100,
     },
+    brand: {
+      type: String,
+      default: "",
+      maxlength: 100,
+      trim: true,
+    },
     price: {
       type: Number,
       required: true,
@@ -23,7 +29,21 @@ const itemSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ["Pantry", "Dairy", "Meat"],
+      enum: [
+        "Pantry",
+        "Dairy",
+        "Meat",
+        "Frozen",
+        "Produce",
+        "Bakery",
+        "Beverages",
+        "Snacks",
+        "Household",
+        "Personal Care",
+        "Canned Goods",
+        "Condiments",
+        "Other",
+      ],
       default: "Pantry",
     },
     priority: {

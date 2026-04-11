@@ -20,9 +20,27 @@ const validateSignin = celebrate({
 const validateCreateItem = celebrate({
   [Segments.BODY]: Joi.object().keys({
     item: Joi.string().required().min(1).max(100),
+    /* Added brand field validation */
+    brand: Joi.string().max(100).allow("").trim(),
     price: Joi.number().required().min(0),
     unit: Joi.string().required(),
-    category: Joi.string().required().valid("Pantry", "Dairy", "Meat"),
+    category: Joi.string()
+      .required()
+      .valid(
+        "Pantry",
+        "Dairy",
+        "Meat",
+        "Frozen",
+        "Produce",
+        "Bakery",
+        "Beverages",
+        "Snacks",
+        "Household",
+        "Personal Care",
+        "Canned Goods",
+        "Condiments",
+        "Other",
+      ),
     priority: Joi.string().required().valid("Essential", "Surplus", "Optional"),
     qty: Joi.number().min(0),
     hidden: Joi.boolean(),
@@ -39,9 +57,24 @@ const validateItemId = celebrate({
 const validateUpdateItem = celebrate({
   [Segments.BODY]: Joi.object().keys({
     item: Joi.string().min(1).max(100),
+    brand: Joi.string().max(100).allow("").trim(),
     price: Joi.number().min(0),
     unit: Joi.string(),
-    category: Joi.string().valid("Pantry", "Dairy", "Meat"),
+    category: Joi.string().valid(
+      "Pantry",
+      "Dairy",
+      "Meat",
+      "Frozen",
+      "Produce",
+      "Bakery",
+      "Beverages",
+      "Snacks",
+      "Household",
+      "Personal Care",
+      "Canned Goods",
+      "Condiments",
+      "Other",
+    ),
     priority: Joi.string().valid("Essential", "Surplus", "Optional"),
     qty: Joi.number().min(0),
     hidden: Joi.boolean(),
