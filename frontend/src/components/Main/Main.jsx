@@ -16,8 +16,8 @@ function Main({
   const [filterCategory, setFilterCategory] = useState("All");
   const [filterPriority, setFilterPriority] = useState("All");
   const [priceEditItem, setPriceEditItem] = useState(null);
-const [priceEditValue, setPriceEditValue] = useState("");
-const [priceEditUnit, setPriceEditUnit] = useState("each");
+  const [priceEditValue, setPriceEditValue] = useState("");
+  const [priceEditUnit, setPriceEditUnit] = useState("each");
 
   const visibleItems = items.filter((i) => !i.hidden);
 
@@ -49,35 +49,34 @@ const [priceEditUnit, setPriceEditUnit] = useState("each");
   };
 
   const handleOpenPriceEdit = (row) => {
-  setPriceEditItem(row);
-  setPriceEditValue(String(row.price ?? ""));
-  setPriceEditUnit(row.unit || "each");
-};
+    setPriceEditItem(row);
+    setPriceEditValue(String(row.price ?? ""));
+    setPriceEditUnit(row.unit || "each");
+  };
 
-const handleClosePriceEdit = () => {
-  setPriceEditItem(null);
-  setPriceEditValue("");
-  setPriceEditUnit("each");
-};
+  const handleClosePriceEdit = () => {
+    setPriceEditItem(null);
+    setPriceEditValue("");
+    setPriceEditUnit("each");
+  };
 
-const handleSavePriceEdit = async () => {
-  if (!priceEditItem || !onUpdateItem) return;
+  const handleSavePriceEdit = async () => {
+    if (!priceEditItem || !onUpdateItem) return;
 
-  const parsedPrice = parseFloat(priceEditValue);
+    const parsedPrice = parseFloat(priceEditValue);
 
-  if (isNaN(parsedPrice) || parsedPrice < 0) {
-    return;
-  }
+    if (isNaN(parsedPrice) || parsedPrice < 0) {
+      return;
+    }
 
-  await onUpdateItem(priceEditItem._id, {
-    ...buildItemPayload(priceEditItem, activeStore),
-    price: parsedPrice,
-    unit: priceEditUnit,
-  });
+    await onUpdateItem(priceEditItem._id, {
+      ...buildItemPayload(priceEditItem, activeStore),
+      price: parsedPrice,
+      unit: priceEditUnit,
+    });
 
-  handleClosePriceEdit();
-};
-
+    handleClosePriceEdit();
+  };
 
   const matchesCategory = (i) =>
     filterCategory === "All" ||
@@ -225,7 +224,12 @@ const handleSavePriceEdit = async () => {
                     </button>
                   </div>
 
-                  <span className="main__price">
+                  <span
+                    className="main__price main__price--clickable"
+                    onClick={() => handleOpenPriceEdit(row)}
+                    role="button"
+                    tabIndex={0}
+                  >
                     ${((row.price ?? 0) * (row.qty ?? 0)).toFixed(2)}
                   </span>
                 </div>
@@ -239,15 +243,15 @@ const handleSavePriceEdit = async () => {
         </p>
       </div>
       <EditPriceModal
-  isOpen={!!priceEditItem}
-  item={priceEditItem}
-  priceValue={priceEditValue}
-  unitValue={priceEditUnit}
-  onPriceChange={setPriceEditValue}
-  onUnitChange={setPriceEditUnit}
-  onSave={handleSavePriceEdit}
-  onClose={handleClosePriceEdit}
-/>
+        isOpen={!!priceEditItem}
+        item={priceEditItem}
+        priceValue={priceEditValue}
+        unitValue={priceEditUnit}
+        onPriceChange={setPriceEditValue}
+        onUnitChange={setPriceEditUnit}
+        onSave={handleSavePriceEdit}
+        onClose={handleClosePriceEdit}
+      />
     </section>
   );
 }

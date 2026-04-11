@@ -225,6 +225,16 @@
   margin-left: 6px;
 }
 
+.main__price_clickable {
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.main__price_clickable:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
 .main__totalline {
   margin-top: 12px;
   font-size: 16px;
