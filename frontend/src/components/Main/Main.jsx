@@ -179,76 +179,84 @@ function Main({
           <p className="main__empty">No items match your filters.</p>
         ) : (
           <ul className="main__list">
-            {filteredItems.map((row) => (
-              <li key={row._id} className="main__row">
-                <div className="main__row-left">
-                  <span className="main__item-name">{row.item}</span>
-                  <span className="main__unit">{getUnitLabel(row.unit)}</span>
-                </div>
+            {filteredItems.map((row) => {
+              const qty = row.qty ?? 0;
 
-                <div className="main__row-right">
-                  <span className="main__badge main__badge--priority">
-                    {row.priority}
-                  </span>
-                  <span className="main__badge main__badge--category">
-                    {row.category}
-                  </span>
+              let priceStateClass = "main__price--empty";
+              if (qty === 1) priceStateClass = "main__price--active";
+              if (qty > 1) priceStateClass = "main__price--strong";
 
-                  <div
-                    className="main__qty-wrap"
-                    aria-label="Quantity controls"
-                  >
-                    <button
-                      className="main__qty-btn btn btn--outline btn--sm"
-                      type="button"
-                      onClick={() => handleDec(row)}
-                      aria-label={`Decrease quantity of ${row.item}`}
-                    >
-                      –
-                    </button>
-
-                    <span
-                      className="main__qty"
-                      aria-label={`Quantity ${row.qty ?? 0}`}
-                    >
-                      {row.qty ?? 0}
-                    </span>
-
-                    <button
-                      className="main__qty-btn btn btn--outline btn--sm"
-                      type="button"
-                      onClick={() => handleInc(row)}
-                      aria-label={`Increase quantity of ${row.item}`}
-                    >
-                      +
-                    </button>
+              return (
+                <li key={row._id} className="main__row">
+                  <div className="main__row-left">
+                    <span className="main__item-name">{row.item}</span>
+                    <span className="main__unit">{getUnitLabel(row.unit)}</span>
                   </div>
 
-                  <div
-                    className="main__price main__price--clickable"
-                    onClick={() => handleOpenPriceEdit(row)}
-                    role="button"
-                    tabIndex={0}
-                    title="Edit price"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleOpenPriceEdit(row);
-                      }
-                    }}
-                  >
-                    <span className="main__price-total">
-                      ${((row.price ?? 0) * (row.qty ?? 0)).toFixed(2)}
+                  <div className="main__row-right">
+                    <span className="main__badge main__badge--priority">
+                      {row.priority}
                     </span>
-                    <span className="main__price-unit">
-                      ${Number(row.price ?? 0).toFixed(2)}
-                      {typeof row.unit === "string" && row.unit.trim()
-                        ? ` / ${row.unit.trim()}`
-                        : ""}
+                    <span className="main__badge main__badge--category">
+                      {row.category}
                     </span>
+
+                    <div
+                      className="main__qty-wrap"
+                      aria-label="Quantity controls"
+                    >
+                      <button
+                        className="main__qty-btn btn btn--outline btn--sm"
+                        type="button"
+                        onClick={() => handleDec(row)}
+                        aria-label={`Decrease quantity of ${row.item}`}
+                      >
+                        –
+                      </button>
+
+                      <span
+                        className="main__qty"
+                        aria-label={`Quantity ${row.qty ?? 0}`}
+                      >
+                        {row.qty ?? 0}
+                      </span>
+
+                      <button
+                        className="main__qty-btn btn btn--outline btn--sm"
+                        type="button"
+                        onClick={() => handleInc(row)}
+                        aria-label={`Increase quantity of ${row.item}`}
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <div
+                      className={`main__price main__price--clickable ${priceStateClass}`}
+                      onClick={() => handleOpenPriceEdit(row)}
+                      role="button"
+                      tabIndex={0}
+                      title={`Edit price for ${row.item}`}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleOpenPriceEdit(row);
+                        }
+                      }}
+                    >
+                      <span className="main__price-total">
+                        ${((row.price ?? 0) * (row.qty ?? 0)).toFixed(2)}
+                      </span>
+                      <span className="main__price-unit">
+                        ${Number(row.price ?? 0).toFixed(2)}
+                        {typeof row.unit === "string" && row.unit.trim()
+                          ? ` / ${row.unit.trim()}`
+                          : ""}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         )}
 

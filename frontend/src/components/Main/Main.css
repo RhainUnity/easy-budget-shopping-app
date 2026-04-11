@@ -246,6 +246,25 @@
   opacity: 0.7;
 }
 
+.main__price--empty .main__price-total,
+.main__price--empty .main__price-unit {
+  opacity: 0.45;
+}
+
+.main__price--active .main__price-total,
+.main__price--active .main__price-unit {
+  opacity: 0.85;
+}
+
+.main__price--strong .main__price-total,
+.main__price--strong .main__price-unit {
+  opacity: 1;
+}
+
+.main__price--strong .main__price-total {
+  font-weight: 700;
+}
+
 .main__totalline {
   margin-top: 12px;
   font-size: 16px;
