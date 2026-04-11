@@ -224,14 +224,28 @@ function Main({
                     </button>
                   </div>
 
-                  <span
+                  <div
                     className="main__price main__price--clickable"
                     onClick={() => handleOpenPriceEdit(row)}
                     role="button"
                     tabIndex={0}
+                    title="Edit price"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleOpenPriceEdit(row);
+                      }
+                    }}
                   >
-                    ${((row.price ?? 0) * (row.qty ?? 0)).toFixed(2)}
-                  </span>
+                    <span className="main__price-total">
+                      ${((row.price ?? 0) * (row.qty ?? 0)).toFixed(2)}
+                    </span>
+                    <span className="main__price-unit">
+                      ${Number(row.price ?? 0).toFixed(2)}
+                      {typeof row.unit === "string" && row.unit.trim()
+                        ? ` / ${row.unit.trim()}`
+                        : ""}
+                    </span>
+                  </div>
                 </div>
               </li>
             ))}
