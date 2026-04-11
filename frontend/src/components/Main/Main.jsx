@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Main.css";
 import { buildItemPayload } from "../../utils/itemPayload";
+import EditPriceModal from "../Modals/EditPriceModal/EditPriceModal";
 
 function Main({
   items = [],
@@ -14,6 +15,9 @@ function Main({
 }) {
   const [filterCategory, setFilterCategory] = useState("All");
   const [filterPriority, setFilterPriority] = useState("All");
+  const [priceEditItem, setPriceEditItem] = useState(null);
+const [priceEditValue, setPriceEditValue] = useState("");
+const [priceEditUnit, setPriceEditUnit] = useState("each");
 
   const visibleItems = items.filter((i) => !i.hidden);
 
@@ -43,6 +47,37 @@ function Main({
       qty: Math.max(0, (row.qty ?? 0) - 1),
     });
   };
+
+  const handleOpenPriceEdit = (row) => {
+  setPriceEditItem(row);
+  setPriceEditValue(String(row.price ?? ""));
+  setPriceEditUnit(row.unit || "each");
+};
+
+const handleClosePriceEdit = () => {
+  setPriceEditItem(null);
+  setPriceEditValue("");
+  setPriceEditUnit("each");
+};
+
+const handleSavePriceEdit = async () => {
+  if (!priceEditItem || !onUpdateItem) return;
+
+  const parsedPrice = parseFloat(priceEditValue);
+
+  if (isNaN(parsedPrice) || parsedPrice < 0) {
+    return;
+  }
+
+  await onUpdateItem(priceEditItem._id, {
+    ...buildItemPayload(priceEditItem, activeStore),
+    price: parsedPrice,
+    unit: priceEditUnit,
+  });
+
+  handleClosePriceEdit();
+};
+
 
   const matchesCategory = (i) =>
     filterCategory === "All" ||
@@ -203,6 +238,16 @@ function Main({
           Cart total ({activeStore}): ${total.toFixed(2)}
         </p>
       </div>
+      <EditPriceModal
+  isOpen={!!priceEditItem}
+  item={priceEditItem}
+  priceValue={priceEditValue}
+  unitValue={priceEditUnit}
+  onPriceChange={setPriceEditValue}
+  onUnitChange={setPriceEditUnit}
+  onSave={handleSavePriceEdit}
+  onClose={handleClosePriceEdit}
+/>
     </section>
   );
 }
