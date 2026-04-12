@@ -1,5 +1,5 @@
 // src/components/Profile/Profile.jsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Profile.css";
 import { fileToDataUrl } from "../../utils/dataURL";
 import defaultAvatar from "../../assets/default-avatar.svg";
@@ -7,6 +7,10 @@ import defaultAvatar from "../../assets/default-avatar.svg";
 function Profile({ isLoggedIn, user, itemCount, onUpdateAvatar }) {
   // local draft (preview) avatar
   const [previewUrl, setPreviewUrl] = useState(user?.avatarUrl || "");
+
+  useEffect(() => {
+    setPreviewUrl(user?.avatarUrl || "");
+  }, [user]);
 
   if (!isLoggedIn) {
     return (
@@ -17,19 +21,38 @@ function Profile({ isLoggedIn, user, itemCount, onUpdateAvatar }) {
     );
   }
 
+  const MAX_FILE_SIZE = 3 * 1024 * 1024; // 3MB
   const handleFileChange = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) return;
-    if (file.size > 2 * 1024 * 1024) return;
+    // 🔍 Debug: log file size
+    console.log("Selected file size (bytes):", file.size);
+    console.log(
+      "Selected file size (MB):",
+      (file.size / 1024 / 1024).toFixed(2),
+    );
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file.");
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      alert("Image is too large. Please choose a file under 5MB.");
+      return;
+    }
 
     const dataUrl = await fileToDataUrl(file);
     setPreviewUrl(dataUrl);
   };
 
-  const handleSave = () => {
-    onUpdateAvatar?.({ avatarUrl: previewUrl || null });
+  const handleSave = async () => {
+    try {
+      await onUpdateAvatar?.({ avatarUrl: previewUrl || null });
+    } catch (err) {
+      console.error("Failed to save avatar:", err);
+    }
   };
 
   const handleReset = () => {
