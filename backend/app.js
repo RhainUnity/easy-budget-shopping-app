@@ -44,7 +44,7 @@ const limiter = rateLimit({
 app.use(cors());
 app.use(helmet());
 app.use(limiter);
-app.use(express.json());
+app.use(express.json({ limit: "3mb" })); // limit JSON payloads to 3MB
 app.use(requestLogger);
 
 // Health check endpoint for uptime monitoring
