@@ -11,6 +11,7 @@ function AddItemModal({ isOpen, onClose, onSubmit, store }) {
   const [category, setCategory] = useState("");
   const [priority, setPriority] = useState("Essential");
   const [unit, setUnit] = useState("each");
+  const [brand, setBrand] = useState("");
 
   const [isLookupOpen, setIsLookupOpen] = useState(false);
 
@@ -21,6 +22,7 @@ function AddItemModal({ isOpen, onClose, onSubmit, store }) {
     setCategory("");
     setPriority("Essential");
     setUnit("each");
+    setBrand("");
     setIsLookupOpen(false);
   };
 
@@ -64,7 +66,10 @@ function AddItemModal({ isOpen, onClose, onSubmit, store }) {
       unit: unit?.trim() || "each",
       category: category.trim() || "Pantry",
       priority: priority || "Essential",
+      brand: brand.trim() || "",
     });
+
+    resetForm();
   };
 
   return (
@@ -83,6 +88,17 @@ function AddItemModal({ isOpen, onClose, onSubmit, store }) {
             onChange={(e) => setName(e.target.value)}
             placeholder="e.g., milk"
             required
+          />
+        </label>
+
+        <label className="addmodal__label">
+          Brand (optional)
+          <input
+            className="addmodal__input"
+            type="text"
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+            placeholder="e.g., Kraft, Heinz, etc."
           />
         </label>
 
@@ -139,6 +155,16 @@ function AddItemModal({ isOpen, onClose, onSubmit, store }) {
             <option value="Pantry">Pantry</option>
             <option value="Dairy">Dairy</option>
             <option value="Meat">Meat</option>
+            <option value="Frozen">Frozen</option>
+            <option value="Produce">Produce</option>
+            <option value="Bakery">Bakery</option>
+            <option value="Beverages">Beverages</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Household">Household</option>
+            <option value="Personal Care">Personal Care</option>
+            <option value="Canned Goods">Canned Goods</option>
+            <option value="Condiments">Condiments</option>
+            <option value="Other">Other</option>
           </select>
         </label>
 

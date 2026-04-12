@@ -139,6 +139,16 @@ function Main({
                   <option value="Pantry">Pantry</option>
                   <option value="Dairy">Dairy</option>
                   <option value="Meat">Meat</option>
+                  <option value="Frozen">Frozen</option>
+                  <option value="Produce">Produce</option>
+                  <option value="Bakery">Bakery</option>
+                  <option value="Beverages">Beverages</option>
+                  <option value="Snacks">Snacks</option>
+                  <option value="Household">Household</option>
+                  <option value="Personal Care">Personal Care</option>
+                  <option value="Canned Goods">Canned Goods</option>
+                  <option value="Condiments">Condiments</option>
+                  <option value="Other">Other</option>
                 </select>
                 <span className="main__select-arrow" aria-hidden="true" />{" "}
               </div>{" "}

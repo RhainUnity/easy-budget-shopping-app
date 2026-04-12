@@ -24,6 +24,7 @@ function FullList({
 
   const handleAddItem = ({
     item,
+    brand,
     price,
     unit,
     category,
@@ -33,6 +34,7 @@ function FullList({
   }) => {
     onAddItem({
       item,
+      brand,
       category,
       priority,
       price,
@@ -169,22 +171,39 @@ function FullList({
                     {/* Item name */}
                     <div className="full__cell full__col_item">
                       {isEditing ? (
-                        <input
-                          className="full__input"
-                          value={activeRow.item}
-                          onChange={(e) =>
-                            handleChange({ item: e.target.value })
-                          }
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter" && isDraftValid) {
-                              handleSave();
-                            } else if (e.key === "Escape") {
-                              handleCancel();
+                        <div className="full__item-edit-group">
+                          <input
+                            className="full__input"
+                            value={activeRow.item}
+                            onChange={(e) =>
+                              handleChange({ item: e.target.value })
                             }
-                          }}
-                        />
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" && isDraftValid) {
+                                handleSave();
+                              } else if (e.key === "Escape") {
+                                handleCancel();
+                              }
+                            }}
+                            placeholder="Item name"
+                          />
+
+                          <input
+                            className="full__input"
+                            value={activeRow.brand ?? ""}
+                            onChange={(e) =>
+                              handleChange({ brand: e.target.value })
+                            }
+                            placeholder="Brand (optional)"
+                          />
+                        </div>
                       ) : (
-                        <span>{row.item}</span>
+                        <div className="full__item-display">
+                          <span>{row.item}</span>
+                          {row.brand && (
+                            <span className="full__brand">{row.brand}</span>
+                          )}
+                        </div>
                       )}
                     </div>
 
@@ -201,6 +220,16 @@ function FullList({
                           <option value="Pantry">Pantry</option>
                           <option value="Dairy">Dairy</option>
                           <option value="Meat">Meat</option>
+                          <option value="Frozen">Frozen</option>
+                          <option value="Produce">Produce</option>
+                          <option value="Bakery">Bakery</option>
+                          <option value="Beverages">Beverages</option>
+                          <option value="Snacks">Snacks</option>
+                          <option value="Household">Household</option>
+                          <option value="Personal Care">Personal Care</option>
+                          <option value="Canned Goods">Canned Goods</option>
+                          <option value="Condiments">Condiments</option>
+                          <option value="Other">Other</option>
                         </select>
                       ) : (
                         <span>{row.category}</span>

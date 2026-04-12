@@ -3,6 +3,7 @@
 export function buildItemPayload(item, activeStore) {
   return {
     item: item.item,
+    brand: item.brand ?? "",
     price: item.price,
     unit: item.unit,
     category: item.category,
