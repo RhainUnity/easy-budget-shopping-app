@@ -80,7 +80,7 @@
 /* Header row */
 .full__header-row {
   display: grid;
-  grid-template-columns: 3.8fr 1.19fr 1.09fr 2.7fr;
+  grid-template-columns: minmax(179px, 1fr) 139px 119px 140px;
   padding: 6px 8px;
   border-bottom: 1px solid var(--color-border);
   font-weight: 700;
@@ -107,9 +107,9 @@
 /* Top line uses the grid */
 .full__row-main {
   display: grid;
-  grid-template-columns: 3.7fr 1fr 1.09fr 2.7fr;
+  grid-template-columns: minmax(170px, 1fr) 130px 110px 140px;
   align-items: start;
-  gap: 8px;
+  gap: 9px;
 }
 
 /* Bottom line is actions row */
@@ -118,7 +118,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 10px;
+  padding-right: 2px;
 }
 
 .full__body {
@@ -132,15 +133,37 @@
 
 .full__cell {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.full__col_category,
+.full__col_priority {
+  align-items: flex-start;
+}
+
+.full__col_category span,
+.full__col_priority span {
+  line-height: 1.15;
+  word-break: break-word;
+}
+
+.full__col_item,
+.full__col_category,
+.full__col_priority,
+.full__col_price {
+  justify-content: flex-start;
+  text-align: left;
 }
 
 .full__actions {
   display: flex;
   gap: 10px;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   flex-wrap: nowrap;
+  margin-left: auto;
 }
 
 .full__hide-text {
@@ -212,10 +235,42 @@
 
 .full__price-text {
   white-space: nowrap;
+  text-align: left;
+  line-height: 1.15;
 }
 
 .full__price-edit {
   flex-wrap: nowrap;
+}
+
+/*------------- Responsive: 521px - 760px ---------- */
+@media (max-width: 760px) {
+  .full__header-row {
+    grid-template-columns: minmax(130px, 1fr) 75px 90px 120px;
+    column-gap: 10px;
+  }
+
+  .full__row-main {
+    grid-template-columns: minmax(130px, 1fr) 75px 90px 120px;
+    gap: 10px;
+  }
+
+  .full__panel {
+    max-width: 100%;
+  }
+
+  .full__price-text {
+    white-space: normal;
+  }
+
+  .full__actions {
+    gap: 8px;
+  }
+
+  .btn.full__btnSmall {
+    padding: 0 10px;
+    font-size: 13px;
+  }
 }
 
 /* ---------- Mobile: <= 520px ---------- */
@@ -348,6 +403,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  min-width: 0; /* allow text to shrink properly in flex */
 }
 
 .full__brand {
