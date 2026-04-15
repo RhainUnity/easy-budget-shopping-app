@@ -40,18 +40,17 @@ function AddItemModal({ isOpen, onClose, onSubmit, store, error }) {
   const handleUseLookupPrice = (lookupResult) => {
     if (!lookupResult) return;
 
-    setName(lookupResult.displayLabel || lookupResult.matchedKey || "");
+    // ✅ FIX: correct fields
+    setName(lookupResult.name || "");
+    setBrand(lookupResult.brand || "");
+
     setPrice(formatPriceForInput(lookupResult.price));
     setUnit(lookupResult.unit || "each");
 
-    const suggestedCategory =
-      lookupResult.matchedKey === "milk" || lookupResult.matchedKey === "egg"
-        ? "Dairy"
-        : lookupResult.matchedKey === "chicken"
-          ? "Meat"
-          : "Pantry";
-
-    setCategory((prev) => (prev ? prev : suggestedCategory));
+    // Optional: only set category if not already selected
+    if (!category) {
+      setCategory(lookupResult.category || "Pantry");
+    }
   };
 
   const handleSubmit = (e) => {
