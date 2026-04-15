@@ -30,3 +30,10 @@
 .addmodal__secondary {
   width: 100%;
 }
+
+.addmodal__error {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 6px;
+  text-align: center;
+}

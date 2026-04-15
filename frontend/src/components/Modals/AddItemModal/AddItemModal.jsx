@@ -5,7 +5,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import PriceLookupModal from "../PriceLookupModal/PriceLookupModal";
 import "./AddItemModal.css";
 
-function AddItemModal({ isOpen, onClose, onSubmit, store }) {
+function AddItemModal({ isOpen, onClose, onSubmit, store, error }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
@@ -184,6 +184,9 @@ function AddItemModal({ isOpen, onClose, onSubmit, store }) {
         >
           Lookup Price (API)
         </button>
+
+        {/* ***Display error message if present (e.g., duplicate item error from backend)*** */}
+        {error && <p className="addmodal__error">{error}</p>}
 
         <button className="btn btn--primary addmodal__submit" type="submit">
           Submit

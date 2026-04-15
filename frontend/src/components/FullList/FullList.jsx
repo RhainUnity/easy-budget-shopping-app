@@ -21,6 +21,7 @@ function FullList({
   const [draftItem, setDraftItem] = useState(null);
   const [editError, setEditError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const [addError, setAddError] = useState("");
 
   const handleAddItem = ({
     item,
@@ -32,6 +33,8 @@ function FullList({
     qty,
     hidden,
   }) => {
+    setAddError("");
+
     onAddItem({
       item,
       brand,
@@ -41,9 +44,13 @@ function FullList({
       unit,
       qty: qty ?? 0,
       hidden: hidden ?? false,
-    }).then(() => {
-      setIsAddOpen(false);
-    });
+    })
+      .then(() => {
+        setIsAddOpen(false);
+      })
+      .catch((err) => {
+        setAddError(err?.message || "Failed to add item");
+      });
   };
 
   const handleChange = (patch) => {
@@ -396,9 +403,13 @@ function FullList({
 
       <AddItemModal
         isOpen={isAddOpen}
-        onClose={() => setIsAddOpen(false)}
+        onClose={() => {
+          setIsAddOpen(false);
+          setAddError("");
+        }}
         onSubmit={handleAddItem}
         store={activeStore}
+        error={addError}
       />
 
       <ConfirmDeleteModal
