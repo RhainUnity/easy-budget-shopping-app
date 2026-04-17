@@ -9,7 +9,9 @@ function About() {
         This app helps users build a shopping list and maintain spending within
         their budget.
       </p>
-      <p className="about__author-name">Author: Jeremy Schmidt</p>
+      <p className="about__author-name">
+        Author: Jeremy Schmidt Copyright-xHaIn ReAxIoN
+      </p>
     </section>
   );
 }
